@@ -195,7 +195,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
     humidity = st.number_input("💧 Humidity (%)", min_value=0.0, max_value=100.0, step=0.1)
 with col2:
-    temperature = st.number_input("🌡️ Body Temp (°C)", min_value=0.0, max_value=50.0, step=0.1)
+    temperature = st.number_input("🌡️ Body Temp (°C)", min_value=0.0, max_value=100.0, step=0.1)
 with col3:
     steps = st.number_input("👣 Step Count", min_value=0, max_value=50000, step=1)
 
