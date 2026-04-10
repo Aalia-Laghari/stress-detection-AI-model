@@ -85,12 +85,14 @@ rf = RandomForestClassifier(n_estimators=100, max_depth=3, random_state=SEED)
 rf.fit(X_train_s, y_train_s)
 print("Random Forest Accuracy:", accuracy_score(y_test_s, rf.predict(X_test_s)))
 
-svm = SVC(kernel="linear", random_state=SEED)
+svm = SVC(kernel="linear", random_state=SEED, class_weight="balanced")
 svm.fit(X_train_s, y_train_s)
 print("SVM Accuracy:", accuracy_score(y_test_s, svm.predict(X_test_s)))
 
 pickle.dump(svm, open("stress_trained.sav", "wb"))
+pickle.dump(scaler, open("scaler.sav", "wb"))
 print("SVM model saved as stress_trained.sav")
+print("Scaler saved as scaler.sav")
 
 stress_lysis["text"] = stress_lysis.apply(
     lambda row: f"Humidity: {row['Humidity']}, Temp: {row['Temperature']}, Steps: {row['Step_count']}",
