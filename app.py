@@ -95,12 +95,18 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; background: #0505
 """, unsafe_allow_html=True)
 
 
+HF_MODEL = "Aalia-Laghari/mindease-stress-model"
+
 @st.cache_resource
 def load_models():
     sensor_model = pickle.load(open("stress_trained.sav", "rb"))
     scaler = pickle.load(open("scaler.sav", "rb"))
-    text_model = DistilBertForSequenceClassification.from_pretrained("./final_stress_model")
-    text_tokenizer = DistilBertTokenizerFast.from_pretrained("./final_stress_tokenizer")
+    text_tokenizer = DistilBertTokenizerFast.from_pretrained(HF_MODEL)
+    text_model = DistilBertForSequenceClassification.from_pretrained(
+        HF_MODEL,
+        torch_dtype=torch.float16,
+        low_cpu_mem_usage=True
+    )
     text_model.eval()
     return sensor_model, scaler, text_model, text_tokenizer
 
